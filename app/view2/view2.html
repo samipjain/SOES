@@ -1,0 +1,63 @@
+<form class="form-inline" name="stockForm" ng-submit="submit()">
+	<div class="form-group">
+    	<select class="form-control" ng-model="stock.id" ng-options="list.name for list in company"></select>
+    </div>    
+    <div class="form-group">
+    	<label class="radio-inline">
+			<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Buy" ng-model="stock.side"> Buy
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Sell" ng-model="stock.side"> Sell
+		</label>
+    </div>
+    <div class="form-group">
+    	<input type="text" class="form-control" ng-model="stock.quantity">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+ </form>
+<div class="row">
+	<div class="col-md-6">
+		<table class="table">
+	    	<thead>
+	      		<tr>
+	        		<th>Stock ID</th>
+	        		<th>Side</th>
+	        		<th>Company</th>
+	        		<th>Quantity</th>
+	      		</tr>
+	    	</thead>
+	    	<tbody>
+	      		<tr ng-repeat="record in data">
+	        		<td>{{record.id}}</td>
+	        		<td>{{record.side}}</td>
+	        		<td>{{record.name}}</td>
+	        		<td>{{record.quantity}}</td>
+	      		</tr>	      		
+	    	</tbody>
+	  	</table>
+	</div>
+	<div class="col-md-6">
+		<table class="table">
+	    	<thead>
+	      		<tr>
+	        		<th>Stock ID</th>
+	        		<th>Side</th>
+	        		<th>Company</th>
+	        		<th>Quantity</th>
+	        		<th></th>
+	        		<th></th>
+	      		</tr>
+	    	</thead>
+	    	<tbody>
+	      		<tr ng-repeat="record in data">
+	        		<td>{{record.id}}</td>
+	        		<td>{{record.side}}</td>
+	        		<td>{{record.name}}</td>
+	        		<td>{{record.quantity}}</td>
+	        		<td>{{record.rem_qty}}</td>
+	        		<td>{{record.status}}</td>
+	      		</tr>
+	    	</tbody>
+	  	</table>
+	</div>
+</div>

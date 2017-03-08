@@ -1,0 +1,47 @@
+<button type="submit" class="btn btn-default" ng-click="calculate()">Calculate</button>
+<div class="row">
+	<div class="col-md-6">
+		<table class="table">
+	    	<thead>
+	      		<tr>
+	        		<th>Stock ID</th>
+	        		<th>Side</th>
+	        		<th>Company</th>
+	        		<th>Quantity</th>
+	      		</tr>
+	    	</thead>
+	    	<tbody>
+	      		<tr ng-repeat="record in input">
+	        		<td>{{record.id}}</td>
+	        		<td>{{record.side}}</td>
+	        		<td>{{record.name}}</td>
+	        		<td>{{record.quantity}}</td>
+	      		</tr>	      		
+	    	</tbody>
+	  	</table>
+	</div>
+	<div class="col-md-6">
+		<table class="table">
+	    	<thead>
+	      		<tr>
+	        		<th>Stock ID</th>
+	        		<th>Side</th>
+	        		<th>Company</th>
+	        		<th>Quantity</th>
+	        		<th></th>
+	        		<th></th>
+	      		</tr>
+	    	</thead>
+	    	<tbody>
+	      		<tr ng-repeat="record in data">
+	        		<td>{{record.id}}</td>
+	        		<td>{{record.side}}</td>
+	        		<td>{{record.name}}</td>
+	        		<td>{{record.quantity}}</td>
+	        		<td>{{record.rem_qty}}</td>
+	        		<td>{{record.status}}</td>
+	      		</tr>
+	    	</tbody>
+	  	</table>
+	</div>
+</div>
