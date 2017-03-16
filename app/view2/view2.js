@@ -29,22 +29,39 @@ angular.module('myApp.view2', ['ngRoute'])
 	var init = function() {		
 	}
 
+	var check = function(index1, index2) {
+		return $scope.data[index1].name === $scope.data[index2].name && $scope.data[index1].rem_qty;
+	}
+
+	var quantity_check = function (index1, index2) {
+		return $scope.data[index1].rem_qty > $scope.data[index2].rem_qty;
+	}
+
+	var swap = function(index1, index2) {
+		$scope.data[index1].rem_qty = Math.abs($scope.data[index1].rem_qty - $scope.data[index2].rem_qty);
+		$scope.data[index1].status = 'Open';
+		$scope.data[index2].rem_qty = 0;
+		$scope.data[index2].status = 'Closed';
+	}
+
 	$scope.calculate = function(){
 		for (var i = 0; i < $scope.data.length; i++)
 		{			
 			for (var j = i + 1; j < $scope.data.length; j++){
-				if ($scope.data[i].name === $scope.data[j].name && $scope.data[i].rem_qty != 0){
-					if ($scope.data[i].rem_qty > $scope.data[j].rem_qty){
-						$scope.data[i].rem_qty = Math.abs($scope.data[i].rem_qty - $scope.data[j].rem_qty);
+				if (check(i, j)){
+					if (quantity_check(i, j)){
+						swap(i,j);
+						/*$scope.data[i].rem_qty = Math.abs($scope.data[i].rem_qty - $scope.data[j].rem_qty);
 						$scope.data[i].status = 'Open';
 						$scope.data[j].rem_qty = 0;
-						$scope.data[j].status = 'Closed';
+						$scope.data[j].status = 'Closed';*/
 					}
-					else{							
-						$scope.data[j].rem_qty = Math.abs($scope.data[i].rem_qty - $scope.data[j].rem_qty);
+					else{				
+						swap(j,i);			
+						/*$scope.data[j].rem_qty = Math.abs($scope.data[i].rem_qty - $scope.data[j].rem_qty);
 						$scope.data[j].status = 'Open';
 						$scope.data[i].rem_qty = 0;
-						$scope.data[i].status = 'Closed';
+						$scope.data[i].status = 'Closed';*/
 					}					
 				}					
 			}
@@ -61,10 +78,6 @@ angular.module('myApp.view2', ['ngRoute'])
 
 		$scope.data.push({id: id, side: temp_stock.side, name: temp_stock.id.name, quantity: temp_stock.quantity, rem_qty: temp_stock.quantity, status: ''});
 		$scope.calculate();	
-	};
-
-	calculateOutput = function(item, index) {
-		
 	};
 
 	init();

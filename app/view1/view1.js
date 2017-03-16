@@ -68,6 +68,8 @@ angular.module('myApp.view1', ['ngRoute'])
 		}
 	];
 
+	$scope.show_output = false;
+
 	var init = function() {
 		angular.forEach($scope.data, function(value, key){
 			value.rem_qty = value.quantity;
@@ -100,28 +102,41 @@ angular.module('myApp.view1', ['ngRoute'])
 		}
 	}*/
 
+	var check = function(index1, index2) {
+		return $scope.data[index1].name === $scope.data[index2].name && $scope.data[index1].rem_qty;
+	}
+
+	var quantity_check = function (index1, index2) {
+		return $scope.data[index1].rem_qty > $scope.data[index2].rem_qty;
+	}
+
+	var swap = function(index1, index2) {
+		$scope.data[index1].rem_qty = Math.abs($scope.data[index1].rem_qty - $scope.data[index2].rem_qty);
+		$scope.data[index1].status = 'Open';
+		$scope.data[index2].rem_qty = 0;
+		$scope.data[index2].status = 'Closed';
+	}
+
 	$scope.calculate = function(){
 		var count_i = 0, count_j = 0;
 		for (var i = 0; i < $scope.data.length; i++)
 		{
 			for (var j = i + 1; j < $scope.data.length; j++){
-				if ($scope.data[i].name === $scope.data[j].name && $scope.data[i].rem_qty != 0){
-					if ($scope.data[i].rem_qty > $scope.data[j].rem_qty){
-						$scope.data[i].rem_qty = Math.abs($scope.data[i].rem_qty - $scope.data[j].rem_qty);
-						$scope.data[i].status = 'Open';
-						$scope.data[j].rem_qty = 0;
-						$scope.data[j].status = 'Closed';
+				if (check(i, j)){
+					if (quantity_check(i, j)){
+						swap(i,j);
 					}
 					else{							
-						$scope.data[j].rem_qty = Math.abs($scope.data[i].rem_qty - $scope.data[j].rem_qty);
+						swap(j,i);
+						/*$scope.data[j].rem_qty = Math.abs($scope.data[i].rem_qty - $scope.data[j].rem_qty);
 						$scope.data[j].status = 'Open';
 						$scope.data[i].rem_qty = 0;
-						$scope.data[i].status = 'Closed';
+						$scope.data[i].status = 'Closed';*/
 					}					
 				}
 			}
-									
 		}
+		$scope.show_output = true;
 	}	
 
 	init();
