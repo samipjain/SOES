@@ -1,0 +1,102 @@
+testCheck() {
+	$scope.data = [
+		{
+			id: 1,
+			side: 'Buy',
+			name: 'ABC',
+			quantity: 10,
+			rem_qty: 10,
+			status: ''
+		},
+		{
+			id: 2,
+			side: 'Sell',
+			name: 'XYZ',
+			quantity: 15,
+			rem_qty: 15,
+			status: ''
+		}
+	];
+	var i = 0, j = 1;
+	var expected_result = true;
+	var actual_result = check($scope.data[i], $scope.data[j]);
+	if (actual_result === expected_result)
+		print 'Pass';
+	else
+		print 'Fail';
+}
+
+
+testQuantityCheck() {
+	$scope.data = [
+		{
+			id: 1,
+			side: 'Buy',
+			name: 'ABC',
+			quantity: 10,
+			rem_qty: 10,
+			status: ''
+		},
+		{
+			id: 2,
+			side: 'Sell',
+			name: 'XYZ',
+			quantity: 15,
+			rem_qty: 15,
+			status: ''
+		}
+	];
+	var i = 0, j = 1;
+	var expected_result = true;
+	var actual_result = quantity_check($scope.data[i], $scope.data[j]);
+	if (actual_result === expected_result)
+		print 'Pass';
+	else
+		print 'Fail';
+}
+
+testSwap() {
+	$scope.data = [
+		{
+			id: 1,
+			side: 'Buy',
+			name: 'ABC',
+			quantity: 10,
+			rem_qty: 10,
+			status: ''
+		},
+		{
+			id: 2,
+			side: 'Sell',
+			name: 'ABC',
+			quantity: 15,
+			rem_qty: 15,
+			status: ''
+		}
+	];
+	var i = 0, j = 1;
+	$scope.expected_result = [
+		{
+			id: 1,
+			side: 'Buy',
+			name: 'ABC',
+			quantity: 10,
+			rem_qty: 5,
+			status: 'Open'
+		},
+		{
+			id: 2,
+			side: 'Sell',
+			name: 'ABC',
+			quantity: 15,
+			rem_qty: 0,
+			status: 'Closed'
+		}
+	];
+
+	swap($scope.data[i], $scope.data[j]);
+	if ($scope.data[i].rem_qty === expected_result[i].rem_qty && $scope.data[i].status === $scope.data[i].status && $scope.data[j].rem_qty === expected_result[j].rem_qty && $scope.data[j].status === $scope.data[j].status)
+		print 'Pass';
+	else
+		print 'Fail';
+}

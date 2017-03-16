@@ -102,19 +102,19 @@ angular.module('myApp.view1', ['ngRoute'])
 		}
 	}*/
 
-	var check = function(index1, index2) {
-		return $scope.data[index1].name === $scope.data[index2].name && $scope.data[index1].rem_qty;
+	var check = function(item1, item2) {
+		return item1.name === item2.name && item1.rem_qty;		
 	}
 
-	var quantity_check = function (index1, index2) {
-		return $scope.data[index1].rem_qty > $scope.data[index2].rem_qty;
+	var quantity_check = function (item1, item2) {
+		return item1.rem_qty > item2.rem_qty;
 	}
-
-	var swap = function(index1, index2) {
-		$scope.data[index1].rem_qty = Math.abs($scope.data[index1].rem_qty - $scope.data[index2].rem_qty);
-		$scope.data[index1].status = 'Open';
-		$scope.data[index2].rem_qty = 0;
-		$scope.data[index2].status = 'Closed';
+	
+	var swap = function(item1, item2) {
+		item1.rem_qty = Math.abs(item1.rem_qty - item2.rem_qty);
+		item1.status = 'Open';
+		item2.rem_qty = 0;
+		item2.status = 'Closed';
 	}
 
 	$scope.calculate = function(){
@@ -122,12 +122,12 @@ angular.module('myApp.view1', ['ngRoute'])
 		for (var i = 0; i < $scope.data.length; i++)
 		{
 			for (var j = i + 1; j < $scope.data.length; j++){
-				if (check(i, j)){
-					if (quantity_check(i, j)){
-						swap(i,j);
+				if (check($scope.data[i], $scope.data[j])){
+					if (quantity_check($scope.data[i], $scope.data[j])){
+						swap($scope.data[i], $scope.data[j]);
 					}
 					else{							
-						swap(j,i);
+						swap($scope.data[j], $scope.data[i]);
 						/*$scope.data[j].rem_qty = Math.abs($scope.data[i].rem_qty - $scope.data[j].rem_qty);
 						$scope.data[j].status = 'Open';
 						$scope.data[i].rem_qty = 0;
